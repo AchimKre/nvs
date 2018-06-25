@@ -63,6 +63,10 @@ nvs() {
 		local NODE_FULLNAME="node-v${NODE_VERSION}-${NVS_OS}-${NODE_ARCH}"
 		local NODE_URI="${NODE_BASE_URI}v${NODE_VERSION}/${NODE_FULLNAME}${NODE_ARCHIVE_EXT}"
 		local NODE_ARCHIVE="${NVS_HOME}/cache/${NODE_FULLNAME}${NODE_ARCHIVE_EXT}"
+		local PROXY_CMD="";
+		if [ -n "${NVS_PROXY}" ]; then
+			PROXY_CMD='--proxy NVS_PROXY';
+		fi
 
 		if [ ! -d "${NVS_HOME}/cache" ]; then
 			command mkdir -p "${NVS_HOME}/cache"
@@ -70,9 +74,9 @@ nvs() {
 
 		echo "Downloading bootstrap node from ${NODE_URI}"
 		if type noglob > /dev/null 2>&1; then
-			noglob curl -L -# "${NODE_URI}" -o "${NODE_ARCHIVE}"
+			noglob curl "$PROXY_CMD" -L -# "${NODE_URI}" -o "${NODE_ARCHIVE}"
 		else
-			curl -L -# "${NODE_URI}" -o "${NODE_ARCHIVE}"
+			curl "$PROXY_CMD" -L -# "${NODE_URI}" -o "${NODE_ARCHIVE}"
 		fi
 
 		if [ "${NVS_OS}" = "win" ]; then
