@@ -21,7 +21,7 @@ choco install nvs
 Specify the installation path, clone the repo, and *source* the `install` command:
 ```
 export NVS_HOME="$HOME/.nvs"
-git clone https://github.com/jasongin/nvs "$NVS_HOME"
+git clone https://github.com/AchimKre/nvs "$NVS_HOME"
 . "$NVS_HOME/nvs.sh" install
 ```
 
